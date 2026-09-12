@@ -1,42 +1,7 @@
-# Secrets and local configuration
 .env
-.env.*
-!.env.example
-
-# Generated application directory
-repo/
-
-# Python caches and environments
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
 .venv/
 venv/
-env/
-ENV/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
-# Node and frontend build output
-node_modules/
-.next/
-out/
-dist/
-build/
-coverage/
-
-# Local logs and generated run output
-*.log
 debug_output.txt
-error.txt
-output.txt
-
-# Local editor and OS files
-.vscode/*
-!.vscode/extensions.json
-.idea/
-.DS_Store
-Thumbs.db
+mcp.json
