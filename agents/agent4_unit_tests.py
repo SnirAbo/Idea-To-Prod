@@ -43,11 +43,10 @@ agent = Agent(
     debug_mode=True,
 )
 
-# async def run_agent3() -> str:
-#     async with github_tools:
-#         response = await agent.arun(f"Jira project key: {JIRA_PROJECT_KEY}")
-#         return response.content
-
+async def run_agent4(repo_url: str) -> str:
+    async with github_tools:
+        response = await agent.arun(f"Write tests for the GitHub repository {repo_url}")
+        return response.content
 
 
 async def main():
