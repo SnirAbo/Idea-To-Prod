@@ -66,7 +66,8 @@ agent = Agent(
 async def run_agent3() -> str:
     async with jira_tools, github_tools:
         response = await agent.arun(f"Jira project key: {JIRA_PROJECT_KEY}")
-        return response.content
+        # return response.content
+        return agent.aprint_response();
 
 
 
