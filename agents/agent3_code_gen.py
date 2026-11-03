@@ -5,6 +5,7 @@ from agno.agent import Agent
 from config.models import CODE_GEN_MODEL
 from mcp_servers import get_github_tools , get_jira_tools
 from config.settings import JIRA_PROJECT_KEY
+from agno.tools.shell import ShellTools
 
 load_dotenv()  
 
@@ -27,15 +28,37 @@ agent = Agent(
         "project structure with all necessary files (source code, "
         "configuration, a dependency manifest, and a README that explains "
         "how to run the project). "
+        "CRITICAL: generate EVERY file the code imports or references. If "
+        "any file imports './components/Editor' or '@/utils/foo', that file "
+        "MUST also be created with real, working content — never leave an "
+        "import pointing to a file you did not create. "
         "Then, using your GitHub tools, create a new GitHub repository and "
         "push all the generated files to it as the initial commit. "
-        "After the code is pushed, mark each task as Done in Jira. "
-        "Do this SEQUENTIALLY — one issue at a time, not in parallel — and "
-        "for each issue first get its available transitions, then apply the "
-        "Done transition, before moving to the next issue. "
+        "\n\n"
+        "SELF-CHECK (verify the code actually works before finishing):\n"
+        "After pushing, use your Shell tools to clone the repository you "
+        "just created into a local folder, then run the install command "
+        "(detect the package manager from the lock file / package.json; use "
+        "'npm install --legacy-peer-deps' for npm projects to tolerate peer "
+        "conflicts) and then the build command (e.g. 'npm run build'). "
+        "If install or build FAILS, read the error, fix the offending files "
+        "(wrong/non-existent dependency versions, missing source files, "
+        "ESM/CommonJS config mismatches, broken imports), and push the fixes "
+        "to the same repository. Then clone fresh and run install + build "
+        "again to confirm. "
+        "Repeat this fix-and-verify cycle AT MOST 3 times. If build still "
+        "fails after 3 attempts, push whatever you have and continue — do "
+        "not loop forever. "
+        "You are on Windows (PowerShell); chain shell commands with ';', not "
+        "'&&'. "
+        "\n\n"
+        "After the code builds (or after 3 attempts), mark each task as Done "
+        "in Jira. Do this SEQUENTIALLY — one issue at a time, not in "
+        "parallel — and for each issue first get its available transitions, "
+        "then apply the Done transition, before moving to the next issue. "
         "Finally, return the URL of the new GitHub repository you created."
     ),
-    tools=[jira_tools, github_tools],
+    tools=[jira_tools, github_tools, ShellTools()],
     markdown=True,
     debug_mode=True,
 )
