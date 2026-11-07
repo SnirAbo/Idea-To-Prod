@@ -68,6 +68,11 @@ agent5_test_execution.py
 npx -y @piotr-agier/google-drive-mcp auth
 ```
 4. Make sure Docker Desktop is running before starting the pipeline.
+   you can also check if it works manualy before letting the agents use it
+   with this command :
+   ```
+   docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN="docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN=your_git  ghcr.io/github/github-mcp-server"  ghcr.io/github/github-mcp-server
+   ```
 
 ## Usage
 
