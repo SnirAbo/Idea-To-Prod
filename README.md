@@ -64,6 +64,9 @@ agent5_test_execution.py
    GITHUB_PERSONAL_ACCESS_TOKEN=your_github_pat   # needs 'repo' + 'workflow' scopes
    ```
 3. Complete the Google Drive OAuth flow once (handled by the Google Drive MCP server).
+```
+npx -y @piotr-agier/google-drive-mcp auth
+```
 4. Make sure Docker Desktop is running before starting the pipeline.
 
 ## Usage
